@@ -48,9 +48,6 @@ namespace :db do
       user_id: rand(1..6)
       )
     end
-
-    10000.times do |x|
-      name: Faker::Name.name
-
+    
   end
 end

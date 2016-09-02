@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   has_many :reviews, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   belongs_to :category
   belongs_to :user
 
@@ -15,6 +16,10 @@ class Product < ApplicationRecord
       where("title ILIKE ? OR description ILIKE ?", "%#{v}%", "%#{v}%")
   end
 
+  def fav_for(user)
+    favorites.find_by_user_id user
+  end
+
   private
 
   def set_price_default_to_1
@@ -24,5 +29,6 @@ class Product < ApplicationRecord
   def capitalize_title
     self.title = title.titleize if title
   end
+
 
 end

@@ -35,5 +35,17 @@ class Ability
       user == product.user
     end
 
+    can :favorite, Product do |product|
+      user != product.user
+    end
+
+    cannot :favorite, Product do |product|
+      user == product.user
+    end
+
+    can :destroy, Favorite do |favorite|
+      user == favorite.user
+    end
+
   end
 end

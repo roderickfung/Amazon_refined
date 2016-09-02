@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :products do
     resources :reviews, only: [:create, :destroy, :index]
+    resources :favorites, only: [:create, :destroy]
   end
 
   resources :sessions, only: [:new, :create] do
