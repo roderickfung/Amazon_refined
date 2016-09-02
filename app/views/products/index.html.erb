@@ -1,0 +1,35 @@
+<div class='product-header'>
+  <h1>Product List</h1>
+</div>
+
+<div class='product-body'>
+  <div class='table-responsive'>
+    <table class='table table-striped'>
+      <tr>
+        <th>Product Name</th>
+        <th>Product Category</th>
+        <th>Product Description</th>
+        <th>Product Price</th>
+        <th><span class='glyphicon glyphicon-info-sign'></span></th>
+      </tr>
+      <% @products.each do |x| %>
+      <tr>
+        <td><%=x.title%></td>
+        <td><%=x.category.name%></td>
+        <td><%=truncate(x.description, length: @charlim, omission: '...')%></td>
+        <td>CDN <%=number_to_currency(x.price)%></td>
+        <td>
+          <%=link_to product_path(x.id) do%>
+          <span class='glyphicon glyphicon-info-sign'></span>
+          <%end%>
+        </td>
+      </tr>
+      <%end%>
+    </table>
+  </div>
+  <div class='paginate'>
+    <center>
+      <%= paginate @products%>
+    </center>
+  </div>
+</div>

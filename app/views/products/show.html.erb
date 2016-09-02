@@ -1,0 +1,82 @@
+<div class='product-body'>
+  <div class='show-details'>
+    <div class = 'row'>
+      <div class= 'col-xs-offset-3 col-xs-6'>
+        <h3><%=@product.title%></h3>
+      </div>
+    </div>
+
+
+    <hr />
+
+
+    <div class='row'>
+      <div class= 'col-xs-offset-1 col-xs-2' style='text-alignt: right;'>
+        CDN <%= number_to_currency @product.price%>
+      </div>
+      <div class='col-xs-8'>
+        <p><%=@product.description%></p>
+      </div>
+    </div>
+    <hr />
+    <div class='row'>
+      <div class ='col-xs-offset-2 col-xs-1'>
+        <%= link_to 'Back', products_path, {class: 'btn btn-default'} %>
+      </div>
+      <div class='col-xs-3'>
+        <div class='btn-group' role='group'>
+          <%= link_to 'Edit', edit_product_path(@product), {class: 'btn btn-info'}%>
+          <%= link_to 'Delete', @product, method: :delete, data: {confirm: 'Are You Sure?'}, class:'btn btn-danger'%>
+        </div>
+      </div>
+    </div>
+
+
+    <hr />
+
+    <!-- REVIEWS DISPLAY BEGIN -->
+    <div class='reviews'>
+      <% @product.reviews.each do |x| %>
+        <%= render 'reviews/review', review: x%>
+      <%end%>
+    </div>
+    <!-- REVIEWS DISPLAY END -->
+
+    <hr />
+
+    <!-- CREATE REVIEWS BEGIN -->
+    <div class ='form-group'>
+      <%= form_for([@product, @review], html: {class: 'form-horizontal'}, remote: true) do |f| %>
+        <div class='row'>
+          <div class='col-xs-offset-4 col-xs-4'>
+            <div class='btn-group'>
+              <button type='button' id='star-1' class='btn btn-default'><i class='glyphicon glyphicon-star-empty'></i></button>
+
+              <button type='button' id='star-2' class='btn btn-default'><i class='glyphicon glyphicon-star-empty'></i></button>
+
+              <button type='button' id='star-3' class='btn btn-default'><i class='glyphicon glyphicon-star-empty'></i></button>
+
+              <button type='button' id='star-4' class='btn btn-default'><i class='glyphicon glyphicon-star-empty'></i></button>
+
+              <button type='button' id='star-5' class='btn btn-default'><i class='glyphicon glyphicon-star-empty'></i></button>
+              <input type ='hidden' name = 'review[star_count]' id='star-count'/>
+            </div>
+            <%# f.select(:star_count, [1,2,3,4,5], {}, {class:'form-control span4'})%>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-xs-offset-4 col-xs-6'>
+            <%= f.text_area(:body, rows: 5, class: 'form-control span6')%>
+          </div>
+        </div>
+        <hr />
+        <div class='row'>
+          <div class='col-xs-offset-4 col-xs-2'>
+            <%= f.submit 'Post Review', class:'btn btn-default'%>
+          </div>
+        </div>
+      <%end%>
+    </div>
+    <!-- CREATE REVIEWS END -->
+  </div>
+</div>
